@@ -25,12 +25,12 @@ d3.json("samples.json").then((data) => {
     // Horizontal Bar Chart and Bubble Chart
     function horizontalChart(sample) {
 
-        // Creating Filter Sample from SampleData Based on the Selected ID
+        // Creating Filter Sample with the Select ID
         var filterSample = [];
         filterSample = sampleData.filter(data => data.id === sample);
         console.log(filterSample);
 
-        // Finding the values of sampleId, sampleValues & sampleLabel
+        // Filtering with sampleId, sampleValues & sampleLabel
         var sampleId = [];
         var sampleValues = [];
         var sampleLabel = [];
@@ -58,33 +58,33 @@ d3.json("samples.json").then((data) => {
             });
         });
 
-        // Finding the first Top 10 value of each array
+        // Finding Top 10 
         var xAxis = sampleValues.slice(0, 10);
-        var lable = sampleLabel.slice(0, 10);
+        var label = sampleLabel.slice(0, 10);
 
-        // Finding the first Top 10 values for OTU_IDS and adding "OTU" to them for the chart
+        // Finding the Top 10 OTU_IDS 
         var yAxis = [];
         for (var i = 0; i < xAxis.length; i++) {
             yAxis.push("OTU " + sampleId[i]);
         };
 
-        // Reversing the values for showing from topest to the least
+        // Changing the diplay from highest to lowest and checking values
         xAxis.reverse();
         yAxis.reverse();
-        lable.reverse();
+        label.reverse();
 
-        // Checking the x and y values for the chart
+        // Check values
         console.log("xAxis:", xAxis);
         console.log("yAxis:", yAxis);
-        console.log("Label:", lable);
+        console.log("Label:", label);
 
-        // Creating Bar Chart:
+        // Plot the Horizontal Bar Chart:
         var trace1 = {
+            type: "bar",
             x: xAxis,
             y: yAxis,
-            text: lable,
+            text: label,
             name: "OTUs",
-            type: "bar",
             orientation: "h",
             marker: {
                 color: [
@@ -105,10 +105,10 @@ d3.json("samples.json").then((data) => {
 
         var data = [trace1];
 
-        // Apply the group bar mode to the layout
+        // Layout
         var layout = {
-            title: `Top 10 OTUs Found in Test ID No.: ${sample}`,
-            xaxis: { title: 'Sample Values' },
+            title: `Test ID No.: ${sample}`,
+            xaxis: { title: 'Values' },
             yaxis: { title: 'OTUs' },
             margin: {
                 l: 100,
@@ -141,7 +141,7 @@ d3.json("samples.json").then((data) => {
 
         // Apply the mode to the layout
         var layout2 = {
-            title: `OTUs Samples for Test ID No.: ${sample}`,
+            title: `Test ID No.: ${sample}`,
             showlegend: false,
             xaxis: {
                 title: "OTU IDs",
