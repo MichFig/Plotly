@@ -264,7 +264,7 @@ function buildGauge(wfreq) {
         // Everything should be set from right to left
         
         marker: {
-        // Colour of each section of the chart
+        // Color of each section of the chart
         colors: [
             "#1a9850",
             "#66bd63",
