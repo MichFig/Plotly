@@ -76,14 +76,13 @@ d3.json("../data/samples.json").then((data) => {
         console.log("yAxis:", yAxis);
         console.log("Label:", label);
 
-        // Plot the Horizontal Bar Chart:
+        // Set the data for Horizontal Bar Chart:
         var trace1 = {
-            type: "bar",
             x: xAxis,
             y: yAxis,
-            text: label,
-            name: "Microbes",
-            orientation: "h",
+            orientation: 'h',
+            type: 'bar',
+            width: .75,
             marker: {
                 color: [
                     "#e4f0f6",
@@ -96,9 +95,8 @@ d3.json("../data/samples.json").then((data) => {
                     "#055a8c",
                     "#094c72",
                     "#0c3953"
-
                 ]
-            }
+            },
         };
 
         var data = [trace1];
@@ -125,15 +123,14 @@ d3.json("../data/samples.json").then((data) => {
         var trace2 = {
             x: sampleId,
             y: sampleValues,
-            text: sampleLabel,
             mode: 'markers',
+            name: Text,
             marker: {
-                color: [
-                    #FF0000) (RGB: 255, 0, 0) ... Yellow (web color) (Hex: #FFFF00) (RGB: 255, 255, 0) Green (X11) (Electric Green) (HTML/CSS “Lime”) (Color wheel green) (Hex: #00FF00) (RGB: 0, 255, 0) Blue (web color) (Hex: #0000FF) (RGB: 0, 0, 255)sampleId,
+                color: sampleId,
                 size: sampleValues,
-               
-            }
+            },
         };
+
 
         var data2 = [trace2];
 
@@ -153,10 +150,10 @@ d3.json("../data/samples.json").then((data) => {
 
     // *****************************************************//
 
-    // Function for filling the Demographic Info Box
-    function tableBuilder(sample) {
+    // Function for Demographic Info 
+    function demoBox(sample) {
 
-        // Filtering the MetaData by Selected Test ID
+        // Filter MetaData by Selected Test ID
         var filterSample = [];
         filterSample = metaData.filter(data => data.id == sample);
         console.log("filtered MetaData:", filterSample);
@@ -205,125 +202,125 @@ d3.json("../data/samples.json").then((data) => {
         horizontalChart(selectedDropdown);
 
         // Filling Demographic Info Box
-        tableBuilder(selectedDropdown);
+        demoBox(selectedDropdown);
 
         // Creating Gauge Chart
-        buildGauge(wfreqValue)
+        washGauge(wfreqValue)
     };
 
-// Creating Gauge Chart
-function buildGauge(wfreq) {
-    // Enter the washing frequency between 0 and 180
-    // We have 9 steps so 180 / 9 = 20
-    var level = parseFloat(wfreq) * 20;
+    // Creating Gauge Chart
+    function washGauge(wfreq) {
+        // Enter the washing frequency between 0 and 180
+        // We have 9 steps so 180 / 9 = 20
+        var level = parseFloat(wfreq) * 20;
 
-    // Trig to calc meter point
-    // To calculate the location of Trig from 0
-    var degrees = 180 - level;
+        // Trig to calc meter point
+        // To calculate the location of Trig from 0
+        var degrees = 180 - level;
 
-    // Length of Trig
-    var radius = 0.5;
+        // Length of Trig
+        var radius = 0.5;
 
-    // Angle of Trig for each WFREQ
-    var radians = (degrees * Math.PI) / 180;
-    var x = radius * Math.cos(radians);
-    var y = radius * Math.sin(radians);
+        // Angle of Trig for each WFREQ
+        var radians = (degrees * Math.PI) / 180;
+        var x = radius * Math.cos(radians);
+        var y = radius * Math.sin(radians);
 
-    // Path: may have to change to create a better triangle
-    var mainPath = "M -.0 -0.05 L .0 0.05 L ";
-    var pathX = String(x);
-    var space = " ";
-    var pathY = String(y);
-    var pathEnd = " Z";
-    var path = mainPath.concat(pathX, space, pathY, pathEnd);
+        // Path: may have to change to create a better triangle
+        var mainPath = "M -.0 -0.05 L .0 0.05 L ";
+        var pathX = String(x);
+        var space = " ";
+        var pathY = String(y);
+        var pathEnd = " Z";
+        var path = mainPath.concat(pathX, space, pathY, pathEnd);
 
-    // Setting the circle at the center of Trig
-    var data = [
-    {
-        type: "scatter",
-        x: [0],
-        y: [0],
-        marker: { size: 20, color: "#000000" },
-        showlegend: false,
-        name: "Washing Frequency",
-        text: level,
-        hoverinfo: "text+name"
-    },
-    {
-        // Top Half of the circle should be divided to 9 section
-        values: [50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50],
+        // Setting the circle at the center of Trig
+        var data = [
+            {
+                type: "scatter",
+                x: [0],
+                y: [0],
+                marker: { size: 20, color: "#000000" },
+                showlegend: false,
+                name: "Washing Frequency",
+                text: level,
+                hoverinfo: "text+name"
+            },
+            {
+                // Top Half of the circle should be divided to 9 section
+                values: [50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50],
 
-        // To show the chart horizontally
-        rotation: 90,
+                // To show the chart horizontally
+                rotation: 90,
 
-        // Inside text for each section, the last one which is for the bottom half of the chart should be null
-        text: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
-        textinfo: "text",
-        textposition: "inside",
+                // Inside text for each section, the last one which is for the bottom half of the chart should be null
+                text: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
+                textinfo: "text",
+                textposition: "inside",
 
-        // Everything should be set from right to left
-        
-        marker: {
-        // Color of each section of the chart
-        colors: [
-            "#1a9850",
-            "#66bd63",
-            "#a6d96a",
-            "#d9ef8b",
-            "#ffffbf",
-            "#fee08b",
-            "#fdae61",
-            "#f46d43",
-            "#d73027",
-            "#ffffff"
-        ]
-        
-        },
-        // Labels of each section of the chart
-        labels: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
-        hoverinfo: "label",
-        hole: 0.5,
-        type: "pie",
-        showlegend: false
-    }
-    ];
+                // Everything should be set from right to left
 
-    // Set of Trig shape and color and location in the chart
-    var layout = {
-    shapes: [
-        {
-        type: "path",
-        path: path,
-        fillcolor: "#000000",
-        line: {
-            color: "#000000"
-        }
-        }
-    ],
-    title: "Belly Button Washing Frequency <br> Cleanouts per Week",
-    height: 500,
-    width: 500,
-    xaxis: {
-        zeroline: false,
-        showticklabels: false,
-        showgrid: false,
-        range: [-1,1]
-    },
-    yaxis: {
-        zeroline: false,
-        showticklabels: false,
-        showgrid: false,
-        range: [-1, 1]
-    }
+                marker: {
+                    // Color of each section of the chart
+                    colors: [
+                        "#1a9850",
+                        "#66bd63",
+                        "#a6d96a",
+                        "#d9ef8b",
+                        "#ffffbf",
+                        "#fee08b",
+                        "#fdae61",
+                        "#f46d43",
+                        "#d73027",
+                        "#ffffff"
+                    ]
+
+                },
+                // Labels of each section of the chart
+                labels: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
+                hoverinfo: "label",
+                hole: .4,
+                type: "pie",
+                showlegend: false
+            }
+        ];
+
+        // Set of Trig shape and color and location in the chart
+        var layout = {
+            shapes: [
+                {
+                    type: "path",
+                    path: path,
+                    fillcolor: "#000000",
+                    line: {
+                        color: "#000000"
+                    }
+                }
+            ],
+            title: "Belly Button Washing Frequency <br> Cleanouts per Week",
+            height: 500,
+            width: 500,
+            xaxis: {
+                zeroline: false,
+                showticklabels: false,
+                showgrid: false,
+                range: [-1, 1]
+            },
+            yaxis: {
+                zeroline: false,
+                showticklabels: false,
+                showgrid: false,
+                range: [-1, 1]
+            }
+        };
+        // Displaying the Guage Chart
+        Plotly.newPlot("gauge", data, layout);
     };
-// Displaying the Guage Chart
-    Plotly.newPlot("gauge", data, layout);
-};
 
 
     // Setting the default for the first time loading so that the page is not empty
     horizontalChart('940');
-    tableBuilder('940');
-    buildGauge('2');
+    demoBox('940');
+    washGauge('2');
 
 });
