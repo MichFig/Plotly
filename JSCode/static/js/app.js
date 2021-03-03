@@ -243,7 +243,7 @@ function buildGauge(wfreq) {
         type: "scatter",
         x: [0],
         y: [0],
-        marker: { size: 20, color: "#f2096b" },
+        marker: { size: 20, color: "#000000" },
         showlegend: false,
         name: "Washing Frequency",
         text: level,
@@ -294,13 +294,13 @@ function buildGauge(wfreq) {
         {
         type: "path",
         path: path,
-        fillcolor: "#f2096b",
+        fillcolor: "#000000",
         line: {
-            color: "#f2096b"
+            color: "#000000"
         }
         }
     ],
-    title: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week",
+    title: "Belly Button Washing Frequency <br> Cleanouts per Week",
     height: 500,
     width: 500,
     xaxis: {
