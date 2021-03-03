@@ -83,6 +83,7 @@ d3.json("../data/samples.json").then((data) => {
             orientation: 'h',
             type: 'bar',
             width: .75,
+            text: label,
             marker: {
                 color: [
                     "#e4f0f6",
@@ -124,11 +125,13 @@ d3.json("../data/samples.json").then((data) => {
             x: sampleId,
             y: sampleValues,
             mode: 'markers',
-            name: Text,
+            text: sampleLabel,
             marker: {
                 color: sampleId,
                 size: sampleValues,
+                colorscale: 'Portland'
             },
+            type: 'scatter'
         };
 
 
