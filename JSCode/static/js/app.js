@@ -25,7 +25,7 @@ d3.json("../data/samples.json").then((data) => {
     // Horizontal Bar Chart and Bubble Chart
     function horizontalChart(sample) {
 
-        // Creating Filter Sample with the Select ID
+        // Filter with the Select ID
         var filterSample = [];
         filterSample = sampleData.filter(data => data.id === sample);
         console.log(filterSample);
@@ -66,7 +66,7 @@ d3.json("../data/samples.json").then((data) => {
             yAxis.push("OTU " + sampleId[i]);
         };
 
-        // Changing the diplay from highest to lowest and checking values
+        // Display highest to lowest and checking values
         xAxis.reverse();
         yAxis.reverse();
         label.reverse();
@@ -82,7 +82,7 @@ d3.json("../data/samples.json").then((data) => {
             x: xAxis,
             y: yAxis,
             text: label,
-            name: "OTUs",
+            name: "Microbes",
             orientation: "h",
             marker: {
                 color: [
@@ -107,7 +107,7 @@ d3.json("../data/samples.json").then((data) => {
         var layout = {
             title: `Test ID No.: ${sample}`,
             xaxis: { title: 'Values' },
-            yaxis: { title: 'OTUs' },
+            yaxis: { title: 'Microbial Species' },
             margin: {
                 l: 100,
                 r: 100,
@@ -116,22 +116,22 @@ d3.json("../data/samples.json").then((data) => {
             }
         };
 
-        // Displaying the Bar Chart
+        // Display Chart
         Plotly.newPlot("bar", data, layout);
 
         // *****************************************************//
 
-        // Craeting Bubble Chart:
+        // Bubble Chart:
         var trace2 = {
             x: sampleId,
             y: sampleValues,
             text: sampleLabel,
             mode: 'markers',
             marker: {
-                color: sampleId,
+                color: [
+                    #FF0000) (RGB: 255, 0, 0) ... Yellow (web color) (Hex: #FFFF00) (RGB: 255, 255, 0) Green (X11) (Electric Green) (HTML/CSS “Lime”) (Color wheel green) (Hex: #00FF00) (RGB: 0, 255, 0) Blue (web color) (Hex: #0000FF) (RGB: 0, 0, 255)sampleId,
                 size: sampleValues,
-                sizeref: 0.05,
-                sizemode: 'area'
+               
             }
         };
 
