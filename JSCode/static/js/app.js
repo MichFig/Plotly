@@ -192,7 +192,7 @@ d3.json("../data/samples.json").then((data) => {
     // *************************************************** //
 
 
-    // Defining the Changing Button:
+    // Change Buttons:
     d3.select("#selDataset").on("change", optionChanged);
 
     // Function of the event for Change Button
@@ -201,35 +201,32 @@ d3.json("../data/samples.json").then((data) => {
         var selectedDropdown = testId.property("value");
         console.log("Selected Drop Down:", selectedDropdown);
 
-        // Creating Bar Chart and Bubble Chart
+        // Bar Chart and Bubble Chart
         horizontalChart(selectedDropdown);
 
-        // Filling Demographic Info Box
+        // Demographic Info 
         demoBox(selectedDropdown);
 
-        // Creating Gauge Chart
-        washGauge(wfreqValue)
-    };
 
+    // ***********Add Gauge Chart from Bonus*************** //
+        // Gauge Chart
+        washGauge(wfreqValue);
+        
+    };
+ // ***********BONUS************************************** //
     // Creating Gauge Chart
     function washGauge(wfreq) {
-        // Enter the washing frequency between 0 and 180
-        // We have 9 steps so 180 / 9 = 20
+
         var level = parseFloat(wfreq) * 20;
-
-        // Trig to calc meter point
-        // To calculate the location of Trig from 0
         var degrees = 180 - level;
-
-        // Length of Trig
         var radius = 0.5;
 
-        // Angle of Trig for each WFREQ
+        // Angle of Needle
         var radians = (degrees * Math.PI) / 180;
         var x = radius * Math.cos(radians);
         var y = radius * Math.sin(radians);
 
-        // Path: may have to change to create a better triangle
+        // Path for pie pieces
         var mainPath = "M -.0 -0.05 L .0 0.05 L ";
         var pathX = String(x);
         var space = " ";
@@ -237,34 +234,26 @@ d3.json("../data/samples.json").then((data) => {
         var pathEnd = " Z";
         var path = mainPath.concat(pathX, space, pathY, pathEnd);
 
-        // Setting the circle at the center of Trig
+        // Circle on Guage
         var data = [
             {
                 type: "scatter",
                 x: [0],
                 y: [0],
-                marker: { size: 20, color: "#000000" },
+                marker: { size: 25, color: "#000000" },
                 showlegend: false,
                 name: "Washing Frequency",
-                text: level,
-                hoverinfo: "text+name"
+                text: level
+               
             },
             {
-                // Top Half of the circle should be divided to 9 section
                 values: [50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50],
-
-                // To show the chart horizontally
                 rotation: 90,
-
-                // Inside text for each section, the last one which is for the bottom half of the chart should be null
                 text: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
                 textinfo: "text",
                 textposition: "inside",
-
-                // Everything should be set from right to left
-
                 marker: {
-                    // Color of each section of the chart
+
                     colors: [
                         "#1a9850",
                         "#66bd63",
@@ -279,16 +268,15 @@ d3.json("../data/samples.json").then((data) => {
                     ]
 
                 },
-                // Labels of each section of the chart
+
                 labels: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1", ""],
-                hoverinfo: "label",
                 hole: .4,
                 type: "pie",
                 showlegend: false
             }
         ];
 
-        // Set of Trig shape and color and location in the chart
+
         var layout = {
             shapes: [
                 {
@@ -316,12 +304,13 @@ d3.json("../data/samples.json").then((data) => {
                 range: [-1, 1]
             }
         };
-        // Displaying the Guage Chart
+        // Display Gauge Chart
         Plotly.newPlot("gauge", data, layout);
+    
     };
 
 
-    // Setting the default for the first time loading so that the page is not empty
+    // Setting the default 
     horizontalChart('940');
     demoBox('940');
     washGauge('2');
